@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="ru">
+  <head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src chrome:; object-src 'none'" />
+    <title>Проблема при загрузке страницы</title>
+    <link rel="stylesheet" href="chrome://browser/skin/aboutNetError.css" type="text/css" media="all" />
+    <!-- If the location of the favicon is changed here, the FAVICON_ERRORPAGE_URL symbol in
+         toolkit/components/places/src/nsFaviconService.h should be updated. -->
+    <link rel="icon" id="favicon" href="chrome://global/skin/icons/info.svg" />
+    <link rel="localization" href="browser/aboutCertError.ftl" />
+    <link rel="localization" href="browser/nsserrors.ftl" />
+    <link rel="localization" href="branding/brand.ftl" />
+  </head>
+
+  <body dir="ltr" class="neterror">
+    <!-- ERROR ITEM CONTAINER (removed during loading to avoid bug 39098) -->
+    
+
+    <!-- PAGE CONTAINER (for styling purposes only) -->
+    <div id="errorPageContainer" class="container">
+      <div id="text-container">
+        <!-- Error Title -->
+        <div class="title noIllustration">
+          <h1 class="title-text" data-l10n-id="csp-xfo-error-title"></h1>
+        </div>
+
+        <!-- LONG CONTENT (the section most likely to require scrolling) -->
+        <div id="errorLongContent">
+
+          <!-- Short Description -->
+          <div id="errorShortDesc" style="display: none;">
+            <p id="errorShortDescText" data-l10n-id="ssl-connection-error" data-l10n-args="{&quot;errorMessage&quot;:&quot;&quot;,&quot;hostname&quot;:&quot;www.facebook.com&quot;}">Эта страница имеет политику X-Frame-Options, блокирующую её загрузку в этом контексте.</p>
+          </div>
+
+          <div id="errorShortDesc2">
+              <p id="errorShortDescText2"></p>
+          </div>
+
+          <div id="errorWhatToDoTitle">
+              <p id="errorWhatToDoTitleText"></p>
+          </div>
+
+          <div id="errorWhatToDo">
+              <p id="badStsCertExplanation" hidden="true"><span class="hostname"></span>
+ имеет политику безопасности называемую Форсированное защищённое 
+соединение HTTP (HSTS), что означает, что Tor Browser может подключиться
+ к нему только через защищённое соединение. Вы не можете добавить 
+исключение, чтобы посетить этот сайт.</p>
+              <p id="errorWhatToDoText"></p>
+          </div>
+
+          <div id="errorWhatToDo2">
+              <p id="errorWhatToDoText2"></p>
+              <p id="badStsCertExplanation" hidden="true"><span class="hostname"></span>
+ имеет политику безопасности называемую Форсированное защищённое 
+соединение HTTP (HSTS), что означает, что Tor Browser может подключиться
+ к нему только через защищённое соединение. Вы не можете добавить 
+исключение, чтобы посетить этот сайт.</p>
+          </div>
+
+          <!-- Long Description (Note: See netError.dtd for used XHTML tags) -->
+          <div id="errorLongDesc" data-l10n-id="csp-xfo-blocked-long-desc" data-l10n-args="{&quot;hostname&quot;:&quot;www.facebook.com&quot;}"><p xmlns="http://www.w3.org/1999/xhtml">Tor
+ Browser заблокировал загрузку этой страницы в данном контексте, так как
+ страница имеет политику X-Frame-Options, которая это запрещает.</p></div>
+
+          <div id="learnMoreContainer" style="display: block;">
+            <p><a id="learnMoreLink" target="_blank" rel="noopener noreferrer" data-telemetry-id="learn_more_link" href="https://support.mozilla.org/1/firefox/91.5.0/WINNT/ru/xframe-neterror-page">Подробнее…</a></p>
+          </div>
+
+          <div id="openInNewWindowContainer" class="button-container" style="display: block;">
+            <p><a id="openInNewWindowButton" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/login/?next=https%3A%2F%2Fwww.facebook.com%2Fplugins%2Flogin_button.php%3Fapp_id%3D128749580520227%26button_type%3Dcontinue_with%26channel%3Dhttps%253A%252F%252Fstaticxx.facebook.com%252Fx%252Fconnect%252Fxd_arbiter%252F%253Fversion%253D46%2523cb%253Df202ead7f0d50bc%2526domain%253Dvk.com%2526is_canvas%253Dfalse%2526origin%253Dhttps%25253A%25252F%25252Fvk.com%25252Ff1358aacaea469c%2526relation%253Dparent.parent%26container_width%3D270%26locale%3Dru_RU%26login_text%26max_rows%3D1%26sdk%3Djoey%26size%3Dmedium%26use_continue_as%3Dtrue%26width%3D264">
+            <button class="primary" data-l10n-id="open-in-new-window-for-csp-or-xfo-error">Открыть сайт в новом окне</button></a></p>
+          </div>
+        </div>
+
+        <!-- UI to temporarily re-enable TLS 1.0 and 1.1.
+             This should be removed after March 2020, see bug 1579285.  -->
+        <div id="enableTls10Container" class="button-container">
+          <p>Tor Browser поддерживает протокол TLS 1.2 и выше. Этот 
+веб-сайт может не поддерживать данный протокол. Для установления 
+соединения можно включить TLS 1.0 и TLS 1.1.</p>
+          <p>TLS 1.0 и TLS 1.1 будут навсегда отключены в будущем релизе.</p>
+          <button id="enableTls10Button" class="primary">Включить TLS 1.0 и 1.1</button>
+        </div>
+
+        <!-- UI for option to report certificate errors to Mozilla. Removed on
+             init for other error types .-->
+        <div id="prefChangeContainer" class="button-container">
+          <p>Похоже, что причиной этого могут быть настройки безопасности вашей сети. Вы хотите восстановить настройки по умолчанию?</p>
+          <button id="prefResetButton" class="primary">Восстановить настройки по умолчанию</button>
+        </div>
+
+        <div id="certErrorAndCaptivePortalButtonContainer" class="button-container">
+          <button id="returnButton" class="primary" data-telemetry-id="return_button_top">Вернуться назад (рекомендуется)</button>
+          <button id="openPortalLoginPageButton" class="primary">Открыть страницу входа в сеть</button>
+          <button class="primary try-again">Попробовать снова</button>
+          <button id="advancedButton" data-telemetry-id="advanced_button">Дополнительно…</button>
+        </div>
+      </div>
+
+      <div id="netErrorButtonContainer" class="button-container" style="display: none;">
+        <button class="primary try-again">Попробовать снова</button>
+      </div>
+
+      <div id="advancedPanelContainer">
+        <div id="badCertAdvancedPanel" class="advanced-panel">
+          <p id="badCertTechnicalInfo"></p>
+          <a id="viewCertificate" href="javascript:void(0)">Просмотреть сертификат</a>
+          <div id="advancedPanelButtonContainer" class="button-container">
+            <button id="advancedPanelReturnButton" class="primary" data-telemetry-id="return_button_adv">Вернуться назад (рекомендуется)</button>
+            <button class="primary try-again">Попробовать снова</button>
+            <div class="exceptionDialogButtonContainer">
+              <button id="exceptionDialogButton" data-telemetry-id="exception_button">Принять риск и продолжить</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="blockingErrorReporting" style="display: block;">
+            <p class="toggle-container-with-text">
+                <input type="checkbox" id="automaticallyReportBlockingInFuture" role="checkbox" />
+                <label for="automaticallyReportBlockingInFuture">Отправка сообщений о подобных ошибках поможет Mozilla обнаружить и заблокировать вредоносные сайты</label>
+            </p>
+        </div>
+
+        <div id="certificateErrorDebugInformation">
+          <button id="copyToClipboardTop" data-telemetry-id="clipboard_button_top">Копировать текст в буфер обмена</button>
+          <div id="certificateErrorText"></div>
+          <button id="copyToClipboardBottom" data-telemetry-id="clipboard_button_bot">Копировать текст в буфер обмена</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="chrome://browser/content/certerror/aboutNetErrorCodes.js"></script>
+  <script src="chrome://browser/content/onionservices/netError/onionNetError.js"></script>
+  <script type="module" src="chrome://browser/content/certerror/aboutNetError.js"></script>
+</html>
